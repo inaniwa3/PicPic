@@ -62,6 +62,16 @@ def main():
     layer0 = im.resize((width * sz, height * sz), Image.NEAREST)
     layer1 = Image.new(im.mode, layer0.size)
 
+    # mask
+    try:
+        mask = Image.open("mask.png")
+        mask = mask.resize((sz, sz), Image.LANCZOS)
+        for x in range(width):
+            for y in range(height):
+                layer0.paste(mask, (x * sz, y * sz), mask)
+    except:
+        pass
+
     for x in range(width):
         for y in range(height):
             layer1.paste(pixel, (x * sz, y * sz))
